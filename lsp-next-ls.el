@@ -38,7 +38,9 @@
 (defcustom lsp-next-ls-binary-name
   (pcase system-type
     ('gnu/linux "next_ls_linux_amd64")
-    ('darwin "next_ls_darwin_arm64")
+    ('darwin (if (string-match "^aarch64-.*" system-configuration)
+                 "next_ls_darwin_arm64"
+                "next_ls_darwin_amd64"))
     ('windows-nt "next_ls_windows_amd64.exe"))
   "The binary name for next-ls."
   :type 'string

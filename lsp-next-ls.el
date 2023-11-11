@@ -83,7 +83,7 @@ be available here: https://github.com/elixir-tools/next-ls/releases."
   :activation-fn (lsp-activate-on "elixir")
   :priority 0
   :add-on? nil
-  :multi-root nil
+  :multi-root t
   :server-id 'next-ls
   :download-server-fn
   (lambda (_client callback error-callback _update?)

@@ -35,9 +35,19 @@
   :group 'lsp-mode
   :link '(url-link "https://github.com/elixir-tools/next-ls"))
 
+(defcustom lsp-next-ls-binary-name
+  (pcase system-type
+    ('gnu/linux "next_ls_linux_amd64")
+    ('darwin "next_ls_darwin_arm64")
+    ('windows-nt "next_ls_windows_amd64.exe"))
+  "The binary name for next-ls."
+  :type 'string
+  :group 'lsp-next-ls
+  :package-version '(lsp-mode . "8.0.1"))
+
 (defcustom lsp-next-ls-command
   `(,(f-join lsp-server-install-dir "next_ls"
-            "next_ls_linux_amd64")
+             lsp-next-ls-binary-name)
     "--stdio=true")
   "The command that starts next-ls."
   :type '(repeat :tag "List of string values" string)
@@ -54,14 +64,14 @@ be available here: https://github.com/elixir-tools/next-ls/releases."
 (defcustom lsp-next-ls-download-url
   (format "https://github.com/elixir-tools/next-ls/releases/download/v%s/%s"
           lsp-next-ls-version
-          "next_ls_linux_amd64")
+          lsp-next-ls-binary-name)
   "Automatic download url for `next-ls'."
   :type 'string
   :group 'lsp-next-ls
   :package-version '(lsp-mode . "8.0.1"))
 
 (defcustom lsp-next-ls-binary-path
-  (f-join lsp-server-install-dir "next_ls" "next_ls_linux_amd64")
+  (f-join lsp-server-install-dir "next_ls" lsp-next-ls-binary-name)
   "The path to the `next-ls' binary."
   :type 'file
   :group 'lsp-next-ls)
